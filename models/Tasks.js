@@ -27,6 +27,10 @@ const TaskSchema = new mongoose.Schema({
         min: 1,
         max: 5
     },
+    completed: {
+        type: Boolean,
+        default: false
+    },
     timestamp: {
         type: Date,
         default: Date.now

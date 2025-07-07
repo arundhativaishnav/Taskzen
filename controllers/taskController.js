@@ -94,3 +94,34 @@ export const deleteTask = async (req, res) => {
         console.log(error);
     }
 }
+
+export const markTaskAsCompleted = async (req, res) => {
+    try {
+        const taskId = req.params.id;
+        const userId = req.user.id;
+
+        const task = await Task.findOneAndUpdate({
+            _id : taskId,
+            user: userId
+        });
+        if(!task){
+            return res.status(400).json({
+                message: 'Task not found or you do not have permission to update this task'
+            })
+        }
+        task.cpmleted = true ;
+        await task.save();
+        res.json({
+            message: 'Task marked as completed successfully',
+            task
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal server error',
+            error: error.message    
+        });
+        console.log(error);
+        
+    }
+}
