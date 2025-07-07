@@ -109,7 +109,7 @@ export const markTaskAsCompleted = async (req, res) => {
                 message: 'Task not found or you do not have permission to update this task'
             })
         }
-        task.cpmleted = true ;
+        task.completed = true ;
         await task.save();
         res.json({
             message: 'Task marked as completed successfully',
